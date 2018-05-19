@@ -40,7 +40,7 @@ const app = {
 
             this.rgb.value = `rgb(${colors[0]},${colors[1]},${colors[2]})`;
             this.color.value = '#' + hex;
-            this.updateCSS();
+            this.updateCSS(colors);
         }
     },
 
@@ -69,26 +69,26 @@ const app = {
         }
 
         if (colors.length === 3) {
-            colors = colors.map(color => {
-                let num = parseInt(color);
-                if (num >= 0 && num <= 255)
-                    return this.convertToBaseHex(num);
+            colors = colors.map(color => parseInt(color));
+            hex = colors.map(color => {
+                if (color >= 0 && color <= 255)
+                    return this.convertToBaseHex(color);
                 else
                     return undefined;
             });
  
-            if(colors.indexOf(undefined) < 0) {
-                colors = colors.map(color => {
+            if(hex.indexOf(undefined) < 0) {
+                hex = hex.map(color => {
                     color = color.toString();
                     while(color.length < 2)
                         color = '0' + color;
                     return color;
                 });
 
-                this.hex.value = '#' + colors.join('');
+                this.hex.value = '#' + hex.join('');
                 this.color.value = this.hex.value;
                 
-                this.updateCSS();
+                this.updateCSS(colors);
             }
         }
     },
@@ -129,9 +129,20 @@ const app = {
         return hex;
     },
 
-    updateCSS() {
+    updateCSS(colors) {
         const body = document.querySelector('body');
         body.style.backgroundColor = this.hex.value;
+
+        let count = 0;
+        console.log(colors);
+        colors.forEach(color => {
+            if(color >= 60)
+                count++;
+        });
+
+        this.form.classList.remove('black');
+        this.form.classList.remove('white');
+        this.form.classList.add(count >= 2 ? 'white' : 'black');
     },
 }
 
