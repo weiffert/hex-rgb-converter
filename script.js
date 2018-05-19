@@ -6,21 +6,29 @@ const app = {
         this.form = document.querySelector(selectors.form);
 
         this.hex.addEventListener('keyup', event => {
-            this.handleHexInput(event);
+            this.handleHexInput();
         });
         this.rgb.addEventListener('keyup', event => {
-            this.handleRGBInput(event);
+            this.handleRGBInput();
+        });
+        this.color.addEventListener('change', event => {
+            this.handleColorInput();
         });
         this.form.addEventListener('submit', event => {
             event.preventDefault();
-            this.handleSubmit(event);
         });
-        this.color.addEventListener('change', event => {
-            this.handleColorInput(event);
-        });
+
+        // Upon init, choose a random hex color and then set all values to that.
+        const random = [];
+        for(let i = 0; i < 3; i++) {
+            random.push(Math.floor(Math.random() * 256));
+        }
+        let rgb = `rgb(${random.join(',')})`;
+        this.rgb.value = rgb;
+        this.handleRGBInput();
     },
 
-    handleHexInput(event) {
+    handleHexInput() {
         let hex = this.hex.value;
         if (hex.charAt(0) === '#')
             hex = hex.substr(1);
@@ -49,7 +57,7 @@ const app = {
         return '#000000';
     },
 
-    handleRGBInput(event) {
+    handleRGBInput() {
         const rgb = this.rgb.value;
         
         let colors = [''];
@@ -86,12 +94,9 @@ const app = {
         }
     },
 
-    handleColorInput(event) {
-        this.hex.value = event.target.value.toUpperCase();
-        this.handleHexInput(event);
-    },
-
-    handleSubmit(event) {
+    handleColorInput() {
+        this.hex.value = this.color.value.toUpperCase();
+        this.handleHexInput();
     },
 
     convertToBaseTen(value) {
@@ -126,6 +131,7 @@ const app = {
     },
 
     updateCSS() {
+
     },
 }
 
