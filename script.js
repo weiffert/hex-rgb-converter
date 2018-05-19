@@ -83,6 +83,7 @@ const app = {
                 });
 
                 this.hex.value = '#' + colors.join('');
+                this.color.value = this.hex.value;
                 
                 this.updateCSS();
             }
