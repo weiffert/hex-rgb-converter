@@ -18,7 +18,6 @@ const app = {
             event.preventDefault();
         });
 
-        // Upon init, choose a random hex color and then set all values to that.
         const random = [];
         for(let i = 0; i < 3; i++) {
             random.push(Math.floor(Math.random() * 256));
@@ -81,7 +80,7 @@ const app = {
             if(colors.indexOf(undefined) < 0) {
                 colors = colors.map(color => {
                     color = color.toString();
-                    if(color.length < 2)
+                    while(color.length < 2)
                         color = '0' + color;
                     return color;
                 });
@@ -131,7 +130,8 @@ const app = {
     },
 
     updateCSS() {
-
+        const body = document.querySelector('body');
+        body.style.backgroundColor = this.hex.value;
     },
 }
 
