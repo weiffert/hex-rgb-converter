@@ -79,7 +79,7 @@ const app = {
     },
 
     handleColorInput(event) {
-        this.hex.value = event.target.value;
+        this.hex.value = event.target.value.toUpperCase();
         this.handleHexInput(event);
     },
 
