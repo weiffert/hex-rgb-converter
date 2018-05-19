@@ -39,8 +39,7 @@ const app = {
     },
 
     handleRGBInput(event) {
-        const rgb = this.rgb.value
-            .substring(4);
+        const rgb = this.rgb.value;
         
         let colors = [''];
         for(let i = 0; i < rgb.length; i++) {
@@ -60,7 +59,9 @@ const app = {
                     return this.convertToBaseHex(num);
                 else
                     return undefined;
+                    debugger;
             });
+            console.log("colors take two: " + colors);
  
             if(colors.indexOf(undefined) < 0) {
                 colors = colors.map(color => {
@@ -111,7 +112,7 @@ const app = {
             } else {
                 hex = digit.toString() + hex;
             }
-            value /= 16;
+            value = Math.floor(value / 16);
         }
         return hex;
     },
