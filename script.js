@@ -21,16 +21,21 @@ const app = {
     },
 
     handleHexInput(event) {
-        const hex = this.hex.value;
-        if (hex.length === 7) {
-            let colors = [hex.substr(1, 2), hex.substr(3, 2), hex.substr(5, 2)];
+        let hex = this.hex.value;
+        if (hex.charAt(0) === '#')
+            hex = hex.substr(1);
+        if (hex.length === 3) {
+            let colors = [hex.substr(0, 1), hex.substr(1, 1), hex.substr(2, 1)];
+            colors = colors.map(color => color + color);
+            hex = colors.join('');
+            debugger;
+        }
+        if (hex.length === 6) {
+            let colors = [hex.substr(0, 2), hex.substr(2, 2), hex.substr(4, 2)];
             colors = colors.map(color => this.convertToBaseTen(color));
 
             this.rgb.value = `rgb(${colors[0]},${colors[1]},${colors[2]})`;
             this.updateCSS();
-        }
-        if (hex.length === 4) {
-
         }
     },
 
