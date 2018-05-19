@@ -57,12 +57,23 @@ const app = {
             colors = colors.map(color => {
                 let num = parseInt(color);
                 if (num >= 0 && num <= 255)
-                    return this.convertToHex(num);
+                    return this.convertToBaseHex(num);
                 else
                     return undefined;
             });
-            if(!colors.contains(undefined))
+ 
+            if(colors.indexOf(undefined) < 0) {
+                colors = colors.map(color => {
+                    color = color.toString();
+                    if(color.length < 2)
+                        color = '0' + color;
+                    return color;
+                });
+
+                this.hex.value = '#' + colors.join('');
+                
                 this.updateCSS();
+            }
         }
     },
 
@@ -91,14 +102,14 @@ const app = {
         return ten;
     },
 
-    convertToHex(value) {
-        let hex = "";
-        while (value > 0) {
-            const digit = value % 16 + hex;
+    convertToBaseHex(value) {
+        let hex = '';
+        while (value >= 1) {
+            const digit = value % 16;
             if (digit >= 10) {
-                hex += ('A' + digit - 10);
+                hex = (String.fromCharCode('A'.charCodeAt(0) + digit - 10)) + hex;
             } else {
-                hex += digit.toString();
+                hex = digit.toString() + hex;
             }
             value /= 16;
         }
