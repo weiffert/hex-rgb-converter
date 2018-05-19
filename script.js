@@ -28,7 +28,6 @@ const app = {
             let colors = [hex.substr(0, 1), hex.substr(1, 1), hex.substr(2, 1)];
             colors = colors.map(color => color + color);
             hex = colors.join('');
-            debugger;
         }
         if (hex.length === 6) {
             let colors = [hex.substr(0, 2), hex.substr(2, 2), hex.substr(4, 2)];
@@ -42,11 +41,16 @@ const app = {
     handleRGBInput(event) {
         const rgb = this.rgb.value
             .substring(4);
+        
+        let colors = [''];
+        for(let i = 0; i < rgb.length; i++) {
+            if(rgb.charCodeAt(i) >= '0'.charCodeAt(0) && rgb.charCodeAt(i) <= '9'.charCodeAt(0)) {
+                colors[colors.length - 1] += rgb.charAt(i);
+            } else if(rgb.charAt(i) === ',') {
+                colors.push('');
+            }
+        }
 
-        let colors = rgb.split(',');
-        colors = colors.map(color => color.trim());
-
-        console.log(rgb);
         console.log(colors);
 
         if (colors.length === 3) {
