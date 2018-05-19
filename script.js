@@ -61,8 +61,6 @@ const app = {
             }
         }
 
-        console.log(colors);
-
         if (colors.length === 3) {
             colors = colors.map(color => {
                 let num = parseInt(color);
@@ -70,9 +68,7 @@ const app = {
                     return this.convertToBaseHex(num);
                 else
                     return undefined;
-                    debugger;
             });
-            console.log("colors take two: " + colors);
  
             if(colors.indexOf(undefined) < 0) {
                 colors = colors.map(color => {
