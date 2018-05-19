@@ -22,28 +22,39 @@ const app = {
 
     handleHexInput(event) {
         const hex = this.hex.value;
-        if(hex.length > 6) {
+        if (hex.length === 7) {
             let colors = [hex.substr(1, 2), hex.substr(3, 2), hex.substr(5, 2)];
             colors = colors.map(color => this.convertToBaseTen(color));
 
-            this.rgb.value = `rgb(${colors[0]}, ${colors[1]}, ${colors[2]})`;
+            this.rgb.value = `rgb(${colors[0]},${colors[1]},${colors[2]})`;
             this.updateCSS();
         }
-        if(hex.length === 4) {
+        if (hex.length === 4) {
 
         }
     },
 
     handleRGBInput(event) {
         const rgb = this.rgb.value
-            .substring(4, rgb.length - 1);
+            .substring(4);
 
-        const colors = rgb.split(', ');
-            debugger;
-        colors = colors.map(color => this.convertToHex(parseInt(color)));
+        let colors = rgb.split(',');
+        colors = colors.map(color => color.trim());
 
-        this.hex.value = `#${colors[0]}${colors[1]}${colors[2]}`;
-        this.updateCSS();
+        console.log(rgb);
+        console.log(colors);
+
+        if (colors.length === 3) {
+            colors = colors.map(color => {
+                let num = parseInt(color);
+                if (num >= 0 && num <= 255)
+                    return this.convertToHex(num);
+                else
+                    return undefined;
+            });
+            if(!colors.contains(undefined))
+                this.updateCSS();
+        }
     },
 
     handleColorInput(event) {
@@ -57,25 +68,25 @@ const app = {
     convertToBaseTen(value) {
         let ten = 0;
         value = value.toUpperCase();
-        for(let i = 0; i < value.length; i++) {
-            console.log("ten: " + ten);
+        for (let i = 0; i < value.length; i++) {
             ten *= 16;
-            if(value.charAt(i) >= '0' && value.charAt(i) <= '9') {
-                ten += (value.charAt(i) - '0') * 16;
+            if (value.charCodeAt(i) >= '0'.charCodeAt(0) && value.charCodeAt(i) <= '9'.charCodeAt(0)) {
+                ten += (value.charCodeAt(i) - '0'.charCodeAt(0));
             }
-            else if(value.charAt(i) >= 'A' && value.charAt(i) <= 'F') {
-                ten += (value.charAt(i) - 'A' + 10) * 16;
+            else if (value.charCodeAt(i) >= 'A'.charCodeAt(0) && value.charCodeAt(i) <= 'F'.charCodeAt(0)) {
+                ten += (value.charCodeAt(i) - 'A'.charCodeAt(0) + 10);
             } else {
                 console.error("Invalid character");
             }
         }
+        return ten;
     },
 
     convertToHex(value) {
         let hex = "";
-        while(value > 0) {
+        while (value > 0) {
             const digit = value % 16 + hex;
-            if(digit >= 10) {
+            if (digit >= 10) {
                 hex += ('A' + digit - 10);
             } else {
                 hex += digit.toString();
