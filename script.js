@@ -25,17 +25,28 @@ const app = {
         if (hex.charAt(0) === '#')
             hex = hex.substr(1);
         if (hex.length === 3) {
-            let colors = [hex.substr(0, 1), hex.substr(1, 1), hex.substr(2, 1)];
-            colors = colors.map(color => color + color);
-            hex = colors.join('');
+            hex = this.lengthenHexThreeCharacterCode(hex).substr(1);
         }
         if (hex.length === 6) {
             let colors = [hex.substr(0, 2), hex.substr(2, 2), hex.substr(4, 2)];
             colors = colors.map(color => this.convertToBaseTen(color));
 
             this.rgb.value = `rgb(${colors[0]},${colors[1]},${colors[2]})`;
+            this.color.value = '#' + hex;
             this.updateCSS();
         }
+    },
+
+    lengthenHexThreeCharacterCode(hex) {
+        if (hex.charAt(0) === '#')
+            hex = hex.substr(1);
+        if (hex.length === 3) {
+            let colors = [hex.substr(0, 1), hex.substr(1, 1), hex.substr(2, 1)];
+            colors = colors.map(color => color + color);
+            hex = colors.join('');
+            return "#" + hex;
+        }
+        return '#000000';
     },
 
     handleRGBInput(event) {
@@ -118,7 +129,6 @@ const app = {
     },
 
     updateCSS() {
-
     },
 }
 
