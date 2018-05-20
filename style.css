@@ -45,14 +45,15 @@ form p:first-of-type label {
 
 form p:first-of-type input{
   justify-self: flex-end;
-  width: 48%;
+  width: 45%;
 }
 
 input {
   font-family: 'Comfortaa', cursive;
   background: transparent;
   border: none;
-  font-size: large;
+  font-size: larger;
+  width: 13rem;
 }
 
 .black input, .black h1, .black label {
