@@ -1,15 +1,47 @@
-:root {
-  --color: #000000;
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+
+html, body, main {
+  margin: 0;
+}
+
+html {
+  height: 45%;
+  font-family: 'Comfortaa', cursive;
+}
+
+body, main {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  align-content: flex-end;
+  justify-content: center;
+}
+
+form {
+  align-self: flex-end;
+}
+
+h1 {
+  margin: 0;
+  padding: 1rem;
+  font-size: larger;
 }
 
 input {
+  font-family: 'Comfortaa', cursive;
   background: transparent;
   border: none;
 }
 
-.black input{
-  border-bottom: 1px dotted #333;
+.black input, .black h1 {
   color: #333;
+}
+
+.black input {
+  border-bottom: 1px dotted #333;
 }
 
 .black input:focus {
@@ -17,9 +49,12 @@ input {
   color: #000;
 }
 
-.white input{
-  border-bottom: 1px dotted #ccc;
+.white input, .white h1 {
   color: #ccc;
+}
+
+.white input {
+  border-bottom: 1px dotted #ccc;
 }
 
 .white input:focus {

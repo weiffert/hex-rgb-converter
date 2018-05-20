@@ -135,13 +135,13 @@ const app = {
 
         let count = 0;
         colors.forEach(color => {
-            if(color >= 60)
+            if(color >= 90)
                 count++;
         });
 
-        this.form.classList.remove('black');
-        this.form.classList.remove('white');
-        this.form.classList.add(count >= 2 ? 'white' : 'black');
+        body.classList.remove('black');
+        body.classList.remove('white');
+        body.classList.add(count >= 2 ? 'black' : 'white');
     },
 }
 
