@@ -134,7 +134,6 @@ const app = {
         body.style.backgroundColor = this.hex.value;
 
         let count = 0;
-        console.log(colors);
         colors.forEach(color => {
             if(color >= 60)
                 count++;
